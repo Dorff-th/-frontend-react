@@ -3,11 +3,15 @@
 import React, { useEffect, useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import LoginPage from '@/pages/LoginPage';
+import { useEmotionToastState } from './components/EmotionToast/useEmotionToast';
+import EmotionToastContainer from './components/EmotionToast/EmotionToastContainer';
 
 
 const App = () => {
 
   const [theme, setTheme] = useState('light');
+
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
     const saved = localStorage.getItem('theme');
@@ -31,7 +35,6 @@ const App = () => {
       {/* 나중에 추가될 페이지도 여기에 추가하면 됨 */}
     </Routes>
   );
-
    
 };
 
