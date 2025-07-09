@@ -1,13 +1,12 @@
 // src/App.tsx
 
 import React, { useEffect, useState } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
-import { BrowserRouter } from 'react-router-dom';
 import { AuthProvider } from '@/context/AuthContext';
 import AppRouter from '@/routes/AppRouter';
-
 import { EmotionToastProvider } from '@/components/EmotionToast/EmotionToastProvider';
 import { EmotionToastContainer } from '@/components/EmotionToast/EmotionToastContainer';
+import { LoadingProvider } from '@/context/LoadingContext';
+import LoadingOverlay from '@/components/LoadingOverlay';
 
 
 const App = () => {
@@ -31,10 +30,13 @@ const App = () => {
 
   return (
     <EmotionToastProvider>
+      <LoadingProvider>
+      <LoadingOverlay />
       <EmotionToastContainer />
         <AuthProvider>
           <AppRouter />
       </AuthProvider>
+      </LoadingProvider>
     </EmotionToastProvider>
   );
    
