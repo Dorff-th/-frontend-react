@@ -1,14 +1,31 @@
 // src/components/LoginForm.tsx
 
 import React, { useState } from 'react';
+import { login } from '@/api/authApi';
+import { useAuth } from '@/context/AuthContext';
+import { useToastHelper } from '@/components/EmotionToast/toastHelper';
+import { useNavigate } from 'react-router-dom';
 
 const LoginForm = () => {
+
+  const { login: saveToken } = useAuth();
+  const { showSuccess, showError } = useToastHelper();
+  const navigate = useNavigate();
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     // 로그인 로직 처리
+    try {
+      const data = await login(username, password);
+      saveToken(data.token);
+      showSuccess('로그인 성공! 🎉');
+      navigate('/');
+    } catch (err) {
+      showError('로그인 실패 😭');
+    }
   };
 
   return (

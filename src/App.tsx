@@ -2,8 +2,9 @@
 
 import React, { useEffect, useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import LoginPage from '@/pages/LoginPage';
-import ToastTestPage from '@/pages/ToastTestPage';
+import { BrowserRouter } from 'react-router-dom';
+import { AuthProvider } from '@/context/AuthContext';
+import AppRouter from '@/routes/AppRouter';
 
 import { EmotionToastProvider } from '@/components/EmotionToast/EmotionToastProvider';
 import { EmotionToastContainer } from '@/components/EmotionToast/EmotionToastContainer';
@@ -31,13 +32,10 @@ const App = () => {
   return (
     <EmotionToastProvider>
       <EmotionToastContainer />
-    <Routes>
-      <Route path="/" element={<Navigate to="/login" />} />
-      <Route path="/login" element={<LoginPage />} />
-      {/* 나중에 추가될 페이지도 여기에 추가하면 됨 */}
-      <Route path="/toast-test" element={<ToastTestPage />} />
-    </Routes>
-     </EmotionToastProvider>
+        <AuthProvider>
+          <AppRouter />
+      </AuthProvider>
+    </EmotionToastProvider>
   );
    
 };

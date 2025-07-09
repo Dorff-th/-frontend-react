@@ -5,23 +5,23 @@ export const useToastHelper = () => {
   const { showToast } = useEmotionToast()
 
   return {
-    showSuccessToast: (msg: string) =>
+    showSuccess: (msg: string) =>
       showToast({ type: 'success', message: msg }),
 
-    showErrorToast: (msg: string) =>
+    showError: (msg: string) =>
       showToast({ type: 'error', message: msg }),
 
-    showWarningToast: (msg: string) =>
+    showWarning: (msg: string) =>
       showToast({ type: 'warn', message: msg }),
 
-    showInfoToast: (msg: string) =>
+    showInfo: (msg: string) =>
       showToast({ type: 'info', message: msg }),
 
-    showGPTToast: (msg: string) =>
+    showGPT: (msg: string) =>
       showToast({ type: 'gpt', message: msg }),
 
     // 필요 시 사용자 정의
-    showCustomToast: (msg: string) =>
+    showCustom: (msg: string) =>
       showToast({ type: 'custom', message: msg }),
   }
 }
