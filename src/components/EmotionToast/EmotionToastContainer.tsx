@@ -1,25 +1,16 @@
-// src/components/EmotionToast/EmotionToastContainer.tsx
-import React from 'react';
-import ReactDOM from 'react-dom';
-import EmotionToastItem from './EmotionToastItem';
-import { EmotionToast } from './useEmotionToast';
+import { createPortal } from 'react-dom';
+import { useEmotionToast } from '@/components/EmotionToast/useEmotionToast';
+import EmotionToastItem from '@/components/EmotionToast/EmotionToastItem';
 
-interface Props {
-  toasts: EmotionToast[];
-}
+export const EmotionToastContainer = () => {
+  const { toasts, removeToast } = useEmotionToast();
 
-const EmotionToastContainer = ({ toasts }: Props) => {
-  const container = document.getElementById('toast-root');
-  if (!container) return null;
-
-  return ReactDOM.createPortal(
-    <div className="fixed top-4 right-4 z-50">
+  return createPortal(
+    <div className="fixed top-4 right-4 flex flex-col gap-2 z-[9999]">
       {toasts.map((toast) => (
-        <EmotionToastItem key={toast.id} toast={toast} />
+        <EmotionToastItem key={toast.id} toast={toast} onRemove={removeToast} />
       ))}
     </div>,
-    container
+    document.body
   );
 };
-
-export default EmotionToastContainer;

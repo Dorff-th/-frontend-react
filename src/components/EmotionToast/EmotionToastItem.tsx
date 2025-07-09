@@ -5,6 +5,7 @@ import clsx from 'clsx';
 
 interface Props {
   toast: EmotionToast;
+  onRemove: (id: string) => void; 
 }
 
 export const toastImageMap: Record<string, string> = {

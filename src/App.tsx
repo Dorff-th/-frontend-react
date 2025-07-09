@@ -3,15 +3,15 @@
 import React, { useEffect, useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import LoginPage from '@/pages/LoginPage';
-import { useEmotionToastState } from './components/EmotionToast/useEmotionToast';
-import EmotionToastContainer from './components/EmotionToast/EmotionToastContainer';
+import ToastTestPage from '@/pages/ToastTestPage';
+
+import { EmotionToastProvider } from '@/components/EmotionToast/EmotionToastProvider';
+import { EmotionToastContainer } from '@/components/EmotionToast/EmotionToastContainer';
 
 
 const App = () => {
 
   const [theme, setTheme] = useState('light');
-
-  const [show, setShow] = useState(false);
 
   useEffect(() => {
     const saved = localStorage.getItem('theme');
@@ -29,11 +29,15 @@ const App = () => {
   }, []);
 
   return (
+    <EmotionToastProvider>
+      <EmotionToastContainer />
     <Routes>
       <Route path="/" element={<Navigate to="/login" />} />
       <Route path="/login" element={<LoginPage />} />
       {/* 나중에 추가될 페이지도 여기에 추가하면 됨 */}
+      <Route path="/toast-test" element={<ToastTestPage />} />
     </Routes>
+     </EmotionToastProvider>
   );
    
 };
