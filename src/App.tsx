@@ -31,15 +31,15 @@ const App = () => {
   return (
     
     <ThemeProvider>
-    <EmotionToastProvider>
-      <LoadingProvider>
-      <LoadingOverlay />
-      <EmotionToastContainer />
-        <AuthProvider>
-          <AppRouter />
-      </AuthProvider>
-      </LoadingProvider>
-    </EmotionToastProvider>
+      <EmotionToastProvider>
+        <LoadingProvider>
+          <LoadingOverlay />
+          <EmotionToastContainer />
+          <AuthProvider>
+            <AppRouter />
+          </AuthProvider>
+        </LoadingProvider>
+      </EmotionToastProvider>
     </ThemeProvider>
   );
    
