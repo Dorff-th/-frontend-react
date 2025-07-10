@@ -1,6 +1,6 @@
 import { createPortal } from 'react-dom';
-import { useEmotionToast } from '@/components/EmotionToast/useEmotionToast';
-import EmotionToastItem from '@/components/EmotionToast/EmotionToastItem';
+import { useEmotionToast } from '@/components/toast/useEmotionToast';
+import EmotionToastItem from '@/components/toast/EmotionToastItem';
 
 export const EmotionToastContainer = () => {
   const { toasts, removeToast } = useEmotionToast();

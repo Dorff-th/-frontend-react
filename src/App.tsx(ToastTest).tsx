@@ -3,8 +3,8 @@
 import React, { useEffect, useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import LoginPage from '@/pages/LoginPage';
-import { useEmotionToastState } from './components/EmotionToast/useEmotionToast';
-import EmotionToastContainer from './components/EmotionToast/EmotionToastContainer';
+import { useEmotionToastState } from './components/toast/useEmotionToast';
+import EmotionToastContainer from './components/toast/EmotionToastContainer';
 
 
 const App = () => {

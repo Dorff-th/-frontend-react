@@ -1,6 +1,6 @@
 // src/pages/ToastTestPage.tsx
 import React from 'react';
-import { useToastHelper } from '@/components/EmotionToast/toastHelper';
+import { useToastHelper } from '@/components/toast/toastHelper';
 
 const ToastTestPage = () => {
   const {

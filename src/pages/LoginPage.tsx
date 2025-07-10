@@ -2,9 +2,9 @@
 
 import React from 'react';
 import { EmojiProvider } from '@/context/EmojiContext';
-import EmojiDisplay from '@/components/EmojiDisplay';
-import LoginForm from '@/components/LoginForm';
-import FooterMessage from '@/components/FooterMessage';
+import EmojiDisplay from '@/components/emoji/EmojiDisplay';
+import LoginForm from '@/components/form/LoginForm';
+import FooterMessage from '@/components/common/FooterMessage';
 import ThemeToggle from '@/components/common/ThemeToggle';
 
 const LoginPage = () => {

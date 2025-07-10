@@ -3,10 +3,10 @@
 import React, { useEffect, useState } from 'react';
 import { AuthProvider } from '@/context/AuthContext';
 import AppRouter from '@/routes/AppRouter';
-import { EmotionToastProvider } from '@/components/EmotionToast/EmotionToastProvider';
-import { EmotionToastContainer } from '@/components/EmotionToast/EmotionToastContainer';
+import { EmotionToastProvider } from '@/components/toast/EmotionToastProvider';
+import { EmotionToastContainer } from '@/components/toast/EmotionToastContainer';
 import { LoadingProvider } from '@/context/LoadingContext';
-import LoadingOverlay from '@/components/LoadingOverlay';
+import LoadingOverlay from '@/components/overlay/LoadingOverlay';
 import { ThemeProvider } from './context/ThemeContext';
 
 const App = () => {

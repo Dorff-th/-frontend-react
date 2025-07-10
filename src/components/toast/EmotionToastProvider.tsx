@@ -1,6 +1,6 @@
 // src/components/EmotionToast/EmotionToastProvider.tsx
 import React from 'react';
-import { ToastContext, useEmotionToastState } from '@/components/EmotionToast/useEmotionToast';
+import { ToastContext, useEmotionToastState } from '@/components/toast/useEmotionToast';
 
 type Props = {
   children: React.ReactNode;

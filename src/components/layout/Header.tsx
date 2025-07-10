@@ -1,8 +1,8 @@
 // src/components/Header.tsx
 import React from 'react';
 import { useAuth } from '@/context/AuthContext';
-import { useToastHelper } from '@/components/EmotionToast/toastHelper';
-import ThemeToggle from './common/ThemeToggle';
+import { useToastHelper } from '@/components/toast/toastHelper';
+import ThemeToggle from '@/components/common/ThemeToggle';
 import bunnyIcon from '@/assets/characters/loading_bunny_gpt.png';
 
 const Header = () => {
@@ -10,10 +10,14 @@ const Header = () => {
   const { showInfo } = useToastHelper();
 
   const handleLogout = () => {
-    logout();
-    showInfo('로그아웃 완료 👋');
-  };
 
+    showInfo('로그아웃 완료 👋');
+    //setTimeout(() => {
+      logout();
+    //}, 2200);
+
+  };
+  
    return (
     <>
     <header className="bg-sky-100 dark:bg-gray-800 px-4 py-2 flex items-center justify-between">
@@ -39,7 +43,7 @@ const Header = () => {
   {/* 오른쪽: 다크모드 전환 + 로그아웃 */}
   <div className="flex items-center gap-4">
     <ThemeToggle />
-     <button onClick={logout}
+     <button onClick={handleLogout}
       className="px-4 py-1 rounded-lg shadow-md text-white text-sm font-semibold
                  bg-gradient-to-r from-pink-400 to-orange-300
                  dark:from-pink-500 dark:to-orange-400
