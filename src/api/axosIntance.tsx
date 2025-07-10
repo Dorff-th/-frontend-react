@@ -21,11 +21,11 @@ axiosInstance.interceptors.request.use(
 
     // ✅ 강제 딜레이 추가 (개발용)
     // ✅ 강제 딜레이: async 대신 Promise 직접 리턴
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(config);
-      }, 2000); // 1.5초 지연
-    });
+    // return new Promise((resolve) => {
+    //   setTimeout(() => {
+    //     resolve(config);
+    //   }, 2000); // 1.5초 지연
+    // });
 
     return config;
   },

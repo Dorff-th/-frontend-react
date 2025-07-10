@@ -28,7 +28,7 @@ const ThemeToggle = () => {
   };
 
   return (
-    <button onClick={toggleTheme} className="absolute top-2 right-2 text-2xl">
+    <button onClick={toggleTheme} className="flex items-center">
       {theme === 'dark' ? '☀️' : '🌙'}
     </button>
   );

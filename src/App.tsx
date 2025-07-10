@@ -7,7 +7,7 @@ import { EmotionToastProvider } from '@/components/EmotionToast/EmotionToastProv
 import { EmotionToastContainer } from '@/components/EmotionToast/EmotionToastContainer';
 import { LoadingProvider } from '@/context/LoadingContext';
 import LoadingOverlay from '@/components/LoadingOverlay';
-
+import { ThemeProvider } from './context/ThemeContext';
 
 const App = () => {
 
@@ -29,6 +29,8 @@ const App = () => {
   }, []);
 
   return (
+    
+    <ThemeProvider>
     <EmotionToastProvider>
       <LoadingProvider>
       <LoadingOverlay />
@@ -38,6 +40,7 @@ const App = () => {
       </AuthProvider>
       </LoadingProvider>
     </EmotionToastProvider>
+    </ThemeProvider>
   );
    
 };
