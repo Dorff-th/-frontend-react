@@ -11,7 +11,7 @@ const options: FeedbackType[] = ['위로', '칭찬', '갈굼', '비웃음', '랜
 
 const FeedbackTypeSelect: React.FC<FeedbackTypeSelectProps> = ({ value, onChange }) => {
   return (
-    <div>
+    <div className="bg-white dark:bg-gray-800 shadow-md rounded-2xl p-4 mb-6 border border-gray-200 dark:border-gray-700">
       <h3 className="text-lg font-semibold mb-2">GPT 피드백 스타일 선택</h3>
       <select
         value={value}

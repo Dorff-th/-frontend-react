@@ -16,7 +16,7 @@ const emotionList = [
 
 const EmotionSelector: React.FC<EmotionSelectorProps> = ({ selected, onChange }) => {
   return (
-    <div>
+    <div className="bg-white dark:bg-gray-800 shadow-md rounded-2xl p-4 mb-6 border border-gray-200 dark:border-gray-700">
       <h3 className="text-lg font-semibold mb-2">오늘 감정은 어땠나요?</h3>
       <div className="flex justify-between gap-4">
         {emotionList.map((item) => (

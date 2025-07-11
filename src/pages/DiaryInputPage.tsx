@@ -20,7 +20,7 @@ const DiaryInputPage: React.FC = () => {
 
       <main className="max-w-4xl mx-auto py-10 px-4">
         <div className="bg-white text-black dark:bg-gray-800 dark:text-white rounded-lg shadow-lg p-8">
-          <h2 className="text-2xl font-semibold mb-6">오늘의 감정 & 회고 입력 ✍️</h2>
+          {/* <h2 className="text-2xl font-semibold mb-6">오늘의 감정 & 회고 입력 ✍️</h2> */}
           <DiaryForm />
         </div>
       </main>

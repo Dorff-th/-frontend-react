@@ -34,7 +34,7 @@ const FeelingInput: React.FC<FeelingInputProps> = ({
   };
 
   return (
-    <div>
+    <div className="bg-white dark:bg-gray-800 shadow-md rounded-2xl p-4 mb-6 border border-gray-200 dark:border-gray-700">
       <h3 className="text-lg font-semibold mb-2">오늘 기분 한마디 (한글로)</h3>
       <div className="flex gap-2 mb-3">
         <input
