@@ -24,7 +24,7 @@ const HabitChecklist: React.FC<HabitChecklistProps> = ({ selectedHabits, onChang
   };
 
   return (
-    <div className="bg-white dark:bg-gray-800 shadow-md rounded-2xl p-4 mb-6 border border-gray-200 dark:border-gray-700">
+    <div className="bg-gradient-to-b from-blue-100 to-blue-50 dark:from-gray-800 dark:to-gray-700 shadow-lg transition-colors duration-500 rounded-2xl p-4 mb-6 border border-gray-200 dark:border-gray-700">
       <h3 className="text-lg font-semibold mb-2">오늘 완료한 습관</h3>
       <div className="flex flex-wrap gap-3">
         {defaultHabits.map((habit) => (

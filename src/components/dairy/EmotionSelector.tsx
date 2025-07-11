@@ -16,7 +16,7 @@ const emotionList = [
 
 const EmotionSelector: React.FC<EmotionSelectorProps> = ({ selected, onChange }) => {
   return (
-    <div className="bg-white dark:bg-gray-800 shadow-md rounded-2xl p-4 mb-6 border border-gray-200 dark:border-gray-700">
+    <div className="bg-gradient-to-b from-blue-100 to-blue-50 dark:from-gray-800 dark:to-gray-700 shadow-lg transition-colors duration-500 rounded-2xl p-4 mb-6 border border-gray-200 dark:border-gray-700">
       <h3 className="text-lg font-semibold mb-2">오늘 감정은 어땠나요?</h3>
       <div className="flex justify-between gap-4">
         {emotionList.map((item) => (
@@ -25,7 +25,7 @@ const EmotionSelector: React.FC<EmotionSelectorProps> = ({ selected, onChange })
             onClick={() => onChange(item.value)}
             className={clsx(
               'text-3xl transition-transform duration-200',
-              selected === item.value ? 'scale-125 border-2 border-blue-400 rounded-full' : 'opacity-50'
+              selected === item.value ? 'scale-125 border-2 border-blue-400 rounded-full' : 'opacity-70'
             )}
             title={item.label}
           >

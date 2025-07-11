@@ -1,6 +1,7 @@
 // src/routes/AppRouter.tsx
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import NotFoundPage from '@/pages/NotFoundPage';
 import LoginPage from '@/pages/LoginPage';
 import UserHomePage from '@/pages/UserHomePage';
 import PrivateRoute from './PrivateRoute';
@@ -20,8 +21,8 @@ const AppRouter = () => (
         }
       />
        <Route path="/diary" element={<PrivateRoute><DiaryInputPage /></PrivateRoute>} /> {/* 추가 */}
-       {/* fallback route (optional): 정의되지 않은 경로 → 로그인 */}
-      <Route path="*" element={<Navigate to="/" />} />
+       {/* 404 page*/}
+       <Route path="*" element={<NotFoundPage />} />
     </Routes>
 
 );
