@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import LoginPage from '@/pages/LoginPage';
 import UserHomePage from '@/pages/UserHomePage';
 import PrivateRoute from './PrivateRoute';
+import DiaryInputPage from '@/pages/DiaryInputPage';
 
 const AppRouter = () => (
 
@@ -18,7 +19,8 @@ const AppRouter = () => (
           </PrivateRoute>
         }
       />
-      {/* fallback route (optional): 정의되지 않은 경로 → 로그인 */}
+       <Route path="/diary" element={<PrivateRoute><DiaryInputPage /></PrivateRoute>} /> {/* 추가 */}
+       {/* fallback route (optional): 정의되지 않은 경로 → 로그인 */}
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
 

@@ -1,0 +1,40 @@
+import React from 'react';
+import clsx from 'clsx';
+
+interface EmotionSelectorProps {
+  selected: number;
+  onChange: (value: number) => void;
+}
+
+const emotionList = [
+  { value: 1, emoji: '😢', label: '슬픔' },
+  { value: 2, emoji: '😐', label: '무덤덤' },
+  { value: 3, emoji: '🙂', label: '보통' },
+  { value: 4, emoji: '😄', label: '좋음' },
+  { value: 5, emoji: '🤩', label: '최고' },
+];
+
+const EmotionSelector: React.FC<EmotionSelectorProps> = ({ selected, onChange }) => {
+  return (
+    <div>
+      <h3 className="text-lg font-semibold mb-2">오늘 감정은 어땠나요?</h3>
+      <div className="flex justify-between gap-4">
+        {emotionList.map((item) => (
+          <button
+            key={item.value}
+            onClick={() => onChange(item.value)}
+            className={clsx(
+              'text-3xl transition-transform duration-200',
+              selected === item.value ? 'scale-125 border-2 border-blue-400 rounded-full' : 'opacity-50'
+            )}
+            title={item.label}
+          >
+            {item.emoji}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default EmotionSelector;
