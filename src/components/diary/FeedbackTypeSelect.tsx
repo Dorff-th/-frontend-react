@@ -1,13 +1,14 @@
 import React from 'react';
+import { FeedbackType, feedbackStyleMap } from '@/types/feedbackTypes';
 
 interface FeedbackTypeSelectProps {
   value: FeedbackType;
   onChange: (val: FeedbackType) => void;
 }
 
-export type FeedbackType = '위로' | '칭찬' | '갈굼' | '비웃음' | '랜덤';
+//export type FeedbackType = '위로' | '칭찬' | '갈굼' | '비웃음' | '랜덤';
 
-const options: FeedbackType[] = ['위로', '칭찬', '갈굼', '비웃음', '랜덤'];
+//const options: FeedbackType[] = ['위로', '칭찬', '갈굼', '비웃음', '랜덤'];
 
 const FeedbackTypeSelect: React.FC<FeedbackTypeSelectProps> = ({ value, onChange }) => {
   return (
@@ -18,9 +19,9 @@ const FeedbackTypeSelect: React.FC<FeedbackTypeSelectProps> = ({ value, onChange
         onChange={(e) => onChange(e.target.value as FeedbackType)}
         className="border border-gray-300 px-4 py-2 rounded w-full"
       >
-        {options.map((opt) => (
-          <option key={opt} value={opt}>
-            {opt}
+          {Object.entries(feedbackStyleMap).map(([key, style]) => (
+          <option key={key} value={key}>
+            {style.emoji} {style.label}
           </option>
         ))}
       </select>

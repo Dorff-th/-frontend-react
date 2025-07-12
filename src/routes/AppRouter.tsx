@@ -6,6 +6,7 @@ import LoginPage from '@/pages/LoginPage';
 import UserHomePage from '@/pages/UserHomePage';
 import PrivateRoute from './PrivateRoute';
 import DiaryInputPage from '@/pages/DiaryInputPage';
+import GPTFeedbackTestPage from '@/pages/test/GPTFeedbackTestPage';
 
 const AppRouter = () => (
 
@@ -21,6 +22,9 @@ const AppRouter = () => (
         }
       />
        <Route path="/diary" element={<PrivateRoute><DiaryInputPage /></PrivateRoute>} /> {/* 추가 */}
+
+       
+      <Route path="/test/feedback" element={<GPTFeedbackTestPage />} />
        {/* 404 page*/}
        <Route path="*" element={<NotFoundPage />} />
     </Routes>

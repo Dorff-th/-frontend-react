@@ -2,7 +2,7 @@ import React from 'react';
 import Header from '@/components/layout/Header';
 import { useTheme } from '@/context/ThemeContext';
 import clsx from 'clsx';
-import DiaryForm from '@/components/dairy/DairyForm';
+import DiaryForm from '@/components/diary/DiaryForm';
 
 const DiaryInputPage: React.FC = () => {
   const { isDarkMode } = useTheme();
