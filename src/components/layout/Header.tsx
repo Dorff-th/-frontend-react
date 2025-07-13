@@ -4,6 +4,7 @@ import { useAuth } from '@/context/AuthContext';
 import { useToastHelper } from '@/components/toast/toastHelper';
 import ThemeToggle from '@/components/common/ThemeToggle';
 import bunnyIcon from '@/assets/characters/loading_bunny_gpt.png';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   const { logout } = useAuth();
@@ -35,8 +36,26 @@ const Header = () => {
       className="w-12 h-12 rounded-full border-2 border-white dark:border-gray-700 shadow"
     />
     </button>
-    <span className="text-xl font-bold text-gray-800 dark:text-white">
-      감정 & 회고
+    {/* <span className="text-xl font-bold text-gray-800 dark:text-white">
+      감정 & 회고 
+    </span> */}
+    <span>
+      <Link to="/" className="text-xl font-bold text-gray-800 dark:text-white">Home</Link>
+    </span>
+    <span>
+      <Link to="/user/diary-form" className="text-xl font-bold text-gray-800 dark:text-white"> 감정 & 회고 입력 (가제)</Link>
+    </span>
+    <span>
+      <Link to="/" className="text-xl font-bold text-gray-800 dark:text-white">회고달력(가제)</Link>
+    </span>
+    <span>
+      <Link to="/" className="text-xl font-bold text-gray-800 dark:text-white">회고달력(가제)</Link>
+    </span>
+    <span>
+      <Link to="/" className="text-xl font-bold text-gray-800 dark:text-white">회고목록(가제)</Link>
+    </span>
+    <span>
+      <Link to="/" className="text-xl font-bold text-gray-800 dark:text-white">회고통계(가제)</Link>
     </span>
   </div>
 

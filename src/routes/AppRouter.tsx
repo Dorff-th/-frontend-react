@@ -17,13 +17,12 @@ const AppRouter = () => (
         path="/"
         element={
           <PrivateRoute>
-            <UserHomePage />
+             <Navigate to="/user/home" replace />
           </PrivateRoute>
         }
       />
-       <Route path="/diary" element={<PrivateRoute><DiaryInputPage /></PrivateRoute>} /> {/* 추가 */}
-
-       
+      <Route path="/user/home" element={<PrivateRoute><UserHomePage /></PrivateRoute>} /> {/* 추가 */}
+      <Route path="/user/diary-form" element={<PrivateRoute><DiaryInputPage /></PrivateRoute>} /> {/* 추가 */}
       <Route path="/test/feedback" element={<GPTFeedbackTestPage />} />
        {/* 404 page*/}
        <Route path="*" element={<NotFoundPage />} />
