@@ -4,6 +4,8 @@ import { useCalendarData } from '@/hooks/useCalendarData';
 import CalendarDayCell from './CalendarDayCell';
 import clsx from 'clsx';
 import { useState } from 'react';
+import CalendarSelector from './CalendarSelector';
+
 
 const DAYS = ['일', '월', '화', '수', '목', '금', '토'];
 
@@ -42,13 +44,14 @@ const Calendar = () => {
         ◀ Prev
       </button>
 
-      <div className="flex items-end gap-2">
+      {/* <div className="flex items-end gap-2">
         <span className="text-4xl font-bold text-blue-900">{month}</span>
         <span className="text-base font-medium text-black uppercase tracking-wide">
           {new Date(year, month - 1).toLocaleString('en-US', { month: 'long' })}
         </span>
         <span className="text-base text-gray-500 font-medium">{year}</span>
-      </div>
+      </div> */}
+        <CalendarSelector currentDate={currentDate} setCurrentDate={setCurrentDate} />
 
       <button
         onClick={handleNextMonth}
