@@ -17,7 +17,7 @@ const FeedbackTypeSelect: React.FC<FeedbackTypeSelectProps> = ({ value, onChange
       <select
         value={value}
         onChange={(e) => onChange(e.target.value as FeedbackType)}
-        className="border border-gray-300 px-4 py-2 rounded w-full"
+        className="border border-gray-300 px-4 py-2 rounded w-full text-black bg-white dark:bg-white"
       >
           {Object.entries(feedbackStyleMap).map(([key, style]) => (
           <option key={key} value={key}>

@@ -13,7 +13,7 @@ const DiaryTextarea: React.FC<DiaryTextareaProps> = ({ value, onChange }) => {
         placeholder="하루를 되돌아보며 자유롭게 적어보세요..."
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full h-40 border border-gray-300 rounded px-3 py-2 resize-none"
+        className="w-full h-40 border border-gray-300 rounded px-3 py-2 resize-none text-black bg-white dark:bg-white dark:text-black placeholder:text-gray-400"
       />
     </div>
   );

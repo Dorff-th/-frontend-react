@@ -27,9 +27,9 @@ const GPTFeedbackModal = ({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm">
       <div
-        className={`animate-slideDownCenter ${style.bgColor} border-2 ${style.borderColor} text-black dark:text-white rounded-xl shadow-2xl w-[90%] max-w-md px-6 py-6`}
+        className={`animate-slideDownCenter ${style.bgColor} border-2 ${style.borderColor} text-black dark:text-black rounded-xl shadow-2xl w-[90%] max-w-md px-6 py-6`}
       >
-        <p className="text-xs text-gray-600 dark:text-gray-300 mb-1">저장 중...</p>
+        <p className="text-xs text-gray-600 dark:text-black-300 mb-1">저장 중...</p>
         <div className="flex items-center gap-3">
           <span className="text-xl">{style.emoji}</span>
           <span className="text-base font-medium">{message}</span>

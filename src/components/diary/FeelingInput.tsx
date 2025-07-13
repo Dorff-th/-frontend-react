@@ -42,7 +42,7 @@ const FeelingInput: React.FC<FeelingInputProps> = ({
           placeholder="예: 뭔가 무기력했어..."
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className="w-full border border-gray-300 rounded px-3 py-2"
+          className="w-full border border-gray-300 rounded px-3 py-2 text-black bg-white dark:bg-white dark:text-black placeholder:text-gray-400"
         />
         <button
           onClick={handleGenerate}
@@ -53,7 +53,7 @@ const FeelingInput: React.FC<FeelingInputProps> = ({
       </div>
 
       {suggestions.length > 0 && (
-        <div className="flex flex-wrap gap-3">
+        <div className="flex flex-wrap gap-3 dark:text-black">
           {suggestions.map((s, idx) => (
             <button
               key={idx}
