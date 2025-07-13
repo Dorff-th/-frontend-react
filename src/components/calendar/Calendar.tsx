@@ -2,6 +2,7 @@
 import React from 'react';
 import { useCalendarData } from '@/hooks/useCalendarData';
 import CalendarDayCell from './CalendarDayCell';
+import clsx from 'clsx';
 
 const DAYS = ['일', '월', '화', '수', '목', '금', '토'];
 
@@ -18,16 +19,32 @@ const Calendar = () => {
 
   return (
     <div className="w-full">
-         <h3 className="text-xl font-semibold text-center mb-2">
-            {year}년 {month}월
+         <h3 className="flex items-end justify-center gap-2 mb-4">
+            <span className="text-4xl font-bold text-blue-900">{month}</span>
+            <span className="text-base font-medium text-black uppercase tracking-wide">
+              {new Date(year, month - 1).toLocaleString('en-US', { month: 'long' })}
+            </span>
+            <span className="text-base text-gray-500 font-medium">{year}</span>
         </h3>
         {/* 요일 헤더 */}
-        <div className="grid grid-cols-7 mb-2 text-center font-semibold">
+        <div className="grid grid-cols-7 gap-1 mb-2">
         {DAYS.map((day, i) => (
-          <div key={i} className={`py-1 ${i === 0 ? 'text-red-500' : i === 6 ? 'text-blue-500' : ''}`}>
-            {day}
-          </div>
-        ))}
+    <div
+      key={i}
+      className={clsx(
+        'h-12 flex items-center justify-center rounded-md shadow-md',
+        'bg-gradient-to-b from-blue-100 to-gray-50 dark:from-gray-800 dark:to-gray-700',
+        'text-sm font-semibold tracking-wide',
+        i === 0
+          ? 'text-red-500'
+          : i === 6
+          ? 'text-blue-500'
+          : 'text-gray-800 dark:text-white'
+      )}
+    >
+      {day}
+    </div>
+  ))}
     </div>
 
       {/* 날짜 셀 */}
