@@ -8,6 +8,8 @@ import PrivateRoute from './PrivateRoute';
 import DiaryInputPage from '@/pages/DiaryInputPage';
 import GPTFeedbackTestPage from '@/pages/test/GPTFeedbackTestPage';
 
+import CalendarPage from '@/components/calendar/CalendarPage';
+
 const AppRouter = () => (
 
     <Routes>
@@ -23,7 +25,12 @@ const AppRouter = () => (
       />
       <Route path="/user/home" element={<PrivateRoute><UserHomePage /></PrivateRoute>} /> {/* 추가 */}
       <Route path="/user/diary-form" element={<PrivateRoute><DiaryInputPage /></PrivateRoute>} /> {/* 추가 */}
+
+      { /* 캘린더 페이지 */}
+      <Route path="/user/calendar" element={<PrivateRoute><CalendarPage /></PrivateRoute>} />
+
       <Route path="/test/feedback" element={<GPTFeedbackTestPage />} />
+      
        {/* 404 page*/}
        <Route path="*" element={<NotFoundPage />} />
     </Routes>
@@ -31,3 +38,4 @@ const AppRouter = () => (
 );
 
 export default AppRouter;
+
