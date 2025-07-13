@@ -76,7 +76,7 @@ const DiaryForm: React.FC = () => {
           type={feedbackType}
           onClose={() => {
             setShowModal(false);
-            navigate('/calendar');
+            navigate('/user/calendar');
           }}
           duration={3000}
         />
