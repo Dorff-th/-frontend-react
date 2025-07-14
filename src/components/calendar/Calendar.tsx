@@ -10,7 +10,7 @@ import DiaryListForDateModal from '@/components/diary/DiaryListForDateModal';
 //mock data
 import { diaryMockByDate } from '@/mocks/diaryMockByDate';
 const hasDiaryForDate = (fullDate: string): boolean => {
-  return diaryMockByDate[fullDate]?.length > 0;
+  return diaryMockByDate[fullDate]?.entries.length > 0;
 };
 
 

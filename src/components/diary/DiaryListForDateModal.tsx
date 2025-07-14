@@ -14,7 +14,7 @@ interface DiaryListForDateModalProps {
 
 const DiaryListForDateModal = ({ date, onClose }: DiaryListForDateModalProps) => {
   const [openEntryId, setOpenEntryId] = useState<string | null>(null);
-  const diaryList = diaryMockByDate[date] || [];
+  const diaryList = diaryMockByDate[date].entries || [];
 
   // 최신순 정렬
   const sortedList = [...diaryList].sort((a, b) => Number(b.id) - Number(a.id));

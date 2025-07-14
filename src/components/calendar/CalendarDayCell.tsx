@@ -3,37 +3,55 @@
 import React from 'react';
 import clsx from 'clsx';
 import { diaryMockByDate } from '@/mocks/diaryMockByDate';
-import { emotionEmojiMap, EmotionLevel  } from '@/types/emotionMap';
+import { emotionEmojiMap, EmotionLevel } from '@/types/emotionMap';
 
 interface CalendarDayCellProps {
-  date: string; // '13' 또는 '01' 같은 일자 문자열
+  date: string; // '13' 또는 '01'
   hasSummary?: boolean;
   weekday: number; // 0: 일요일, 6: 토요일
   isToday?: boolean;
   year: number;
   month: number; // 1~12
-  onClick?: (date: string) => void; // 👈 상위로 클릭 전달
+  onClick?: (date: string) => void;
 }
 
-const CalendarDayCell = ({ date, hasSummary, weekday, isToday, year, month, onClick }: CalendarDayCellProps) => {
-  // 날짜 조합: YYYY-MM-DD
+const CalendarDayCell = ({
+  date,
+  hasSummary,
+  weekday,
+  isToday,
+  year,
+  month,
+  onClick,
+}: CalendarDayCellProps) => {
+  // YYYY-MM-DD
   const paddedMonth = month.toString().padStart(2, '0');
   const paddedDay = date.toString().padStart(2, '0');
   const fullDate = `${year}-${paddedMonth}-${paddedDay}`;
 
-  const diaryEntries = diaryMockByDate[fullDate] || [];
+  const diaryEntries = diaryMockByDate[fullDate]?.entries ?? [];
   const hasDiary = diaryEntries.length > 0;
 
+  // 평균 감정 점수 계산 (1~5 사이로 제한)
   const averageScore = hasDiary
-    ? Math.round(
-        diaryEntries.reduce((sum, entry) => sum + entry.emotionScore, 0) / diaryEntries.length
+    ? Math.min(
+        5,
+        Math.max(
+          1,
+          Math.round(
+            diaryEntries.reduce((sum, entry) => sum + entry.emotionScore, 0) /
+              diaryEntries.length
+          )
+        )
       )
     : null;
 
+  // 이모지 가져오기 (범위 밖이거나 없으면 null)
   const emotion =
-    averageScore && averageScore >= 1 && averageScore <= 5
+    averageScore && emotionEmojiMap[averageScore as EmotionLevel]
       ? emotionEmojiMap[averageScore as EmotionLevel]
       : null;
+
   const isClickable = !!emotion;
 
   const dayColor =
@@ -59,7 +77,11 @@ const CalendarDayCell = ({ date, hasSummary, weekday, isToday, year, month, onCl
       )}
     >
       <div className={`text-lg font-bold absolute top-1 left-2 ${dayColor}`}>{date}</div>
-      <div className="text-2xl mx-auto mt-5">{emotion || ''}</div>
+
+      <div className="text-2xl mx-auto mt-5">
+        {emotion ?? <span className="text-gray-300">😶</span>}
+      </div>
+
       {hasSummary && isClickable && (
         <div className="text-green-500 text-xs mx-auto mt-1 group-hover:scale-105 transition-transform">
           GPT✅
