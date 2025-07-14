@@ -69,4 +69,36 @@ export const diaryMockByDate: Record<string, DailyDiaryData> = {
     entries: [], // 회고는 아직 없음
     // gptSummary 없음 → 생성 버튼 노출 등으로 판단 가능
   },
+  '2025-07-16': {
+    date: '2025-07-16',
+    entries: [
+      {
+        id: '3',
+        date: '2025-07-16',
+        emotionScore: 3,
+        habits: ['독서'],
+        feelingKor: '그럭저럭',
+        feelingEng: 'So-so day',
+        content: '평범한 하루였고 큰 감정 변화는 없었다.',
+        gptFeedback: '꾸준함도 중요한 미덕이에요. 잘하고 있어요 📚',
+      },
+    ],
+  },
+
+  // ⛔ GPT 요약 없음 + entry만 존재
+  '2025-07-17': {
+    date: '2025-07-17',
+    entries: [
+      {
+        id: '4',
+        date: '2025-07-17',
+        emotionScore: 1,
+        habits: [],
+        feelingKor: '짜증남',
+        feelingEng: 'Felt annoyed',
+        content: '별 일은 없었는데 그냥 짜증이 나는 하루였다.',
+        gptFeedback: '그런 날도 있어요. 감정을 표현한 것만으로도 멋져요 💙',
+      },
+    ],
+  },
 };

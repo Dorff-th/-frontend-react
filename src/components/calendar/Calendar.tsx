@@ -13,7 +13,6 @@ const hasDiaryForDate = (fullDate: string): boolean => {
   return diaryMockByDate[fullDate]?.entries.length > 0;
 };
 
-
 const DAYS = ['일', '월', '화', '수', '목', '금', '토'];
 
 const Calendar = () => {
@@ -59,7 +58,7 @@ const Calendar = () => {
         ◀ Prev
       </button>
       
-        <CalendarSelector currentDate={currentDate} setCurrentDate={setCurrentDate} />
+      <CalendarSelector currentDate={currentDate} setCurrentDate={setCurrentDate} />
 
       <button
         onClick={handleNextMonth}
@@ -104,12 +103,19 @@ const Calendar = () => {
           today.getFullYear() === dateObj.getFullYear() &&
           today.getMonth() === dateObj.getMonth() &&
           today.getDate() === dateObj.getDate();
+        
+        const paddedMonth = String(dateObj.getMonth() + 1).padStart(2, '0');
+        const paddedDay = String(dateObj.getDate()).padStart(2, '0');
+        const fullDate = `${year}-${paddedMonth}-${paddedDay}`;
+
+        const hasSummary = !!diaryMockByDate[fullDate]?.gptSummary;
+        
 
         return (
           <CalendarDayCell
             key={day.date}
             date={day.date.split('-')[2].replace(/^0/, '')}
-            hasSummary={day.hasSummary}
+            hasSummary={hasSummary}
             weekday={weekday}
             isToday={isToday}
             year={dateObj.getFullYear()}
@@ -120,11 +126,11 @@ const Calendar = () => {
       })}
 
       {selectedDate && (
-  <DiaryListForDateModal
-    date={selectedDate}
-    onClose={() => setSelectedDate(null)}
-  />
-)}
+        <DiaryListForDateModal
+          date={selectedDate}
+          onClose={() => setSelectedDate(null)}
+        />
+      )}
 
     </div>
   </div>

@@ -79,7 +79,7 @@ const CalendarDayCell = ({
       <div className={`text-lg font-bold absolute top-1 left-2 ${dayColor}`}>{date}</div>
 
       <div className="text-2xl mx-auto mt-5">
-        {emotion ?? <span className="text-gray-300">😶</span>}
+        {emotion || ''}
       </div>
 
       {hasSummary && isClickable && (
