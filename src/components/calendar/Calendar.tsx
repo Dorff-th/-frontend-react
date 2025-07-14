@@ -5,11 +5,26 @@ import CalendarDayCell from './CalendarDayCell';
 import clsx from 'clsx';
 import { useState } from 'react';
 import CalendarSelector from './CalendarSelector';
+import DiaryListForDateModal from '@/components/diary/DiaryListForDateModal';
+
+//mock data
+import { diaryMockByDate } from '@/mocks/diaryMockByDate';
+const hasDiaryForDate = (fullDate: string): boolean => {
+  return diaryMockByDate[fullDate]?.length > 0;
+};
 
 
 const DAYS = ['일', '월', '화', '수', '목', '금', '토'];
 
 const Calendar = () => {
+
+  const [selectedDate, setSelectedDate] = useState<string | null>(null);
+
+  const handleDateClick = (date: string) => {
+    if (hasDiaryForDate(date)) {
+      setSelectedDate(date);
+    }
+  };
 
   const [currentDate, setCurrentDate] = useState(new Date());  
 
@@ -43,14 +58,7 @@ const Calendar = () => {
       >
         ◀ Prev
       </button>
-
-      {/* <div className="flex items-end gap-2">
-        <span className="text-4xl font-bold text-blue-900">{month}</span>
-        <span className="text-base font-medium text-black uppercase tracking-wide">
-          {new Date(year, month - 1).toLocaleString('en-US', { month: 'long' })}
-        </span>
-        <span className="text-base text-gray-500 font-medium">{year}</span>
-      </div> */}
+      
         <CalendarSelector currentDate={currentDate} setCurrentDate={setCurrentDate} />
 
       <button
@@ -101,13 +109,23 @@ const Calendar = () => {
           <CalendarDayCell
             key={day.date}
             date={day.date.split('-')[2].replace(/^0/, '')}
-            emotion={day.emotionEmoji}
             hasSummary={day.hasSummary}
             weekday={weekday}
             isToday={isToday}
+            year={dateObj.getFullYear()}
+            month={dateObj.getMonth() + 1} // 월은 0부터 시작하므로 +1
+            onClick={handleDateClick} // 👈 이렇게 넘김
           />
         );
       })}
+
+      {selectedDate && (
+  <DiaryListForDateModal
+    date={selectedDate}
+    onClose={() => setSelectedDate(null)}
+  />
+)}
+
     </div>
   </div>
 );

@@ -6,9 +6,11 @@ import LoginPage from '@/pages/LoginPage';
 import UserHomePage from '@/pages/UserHomePage';
 import PrivateRoute from './PrivateRoute';
 import DiaryInputPage from '@/pages/DiaryInputPage';
-import GPTFeedbackTestPage from '@/pages/test/GPTFeedbackTestPage';
-
 import CalendarPage from '@/components/calendar/CalendarPage';
+
+//test page
+import GPTFeedbackTestPage from '@/pages/test/GPTFeedbackTestPage';
+import CalModalTestPage from '@/pages/test/CalModalTestPage';
 
 const AppRouter = () => (
 
@@ -29,7 +31,9 @@ const AppRouter = () => (
       { /* 캘린더 페이지 */}
       <Route path="/user/calendar" element={<PrivateRoute><CalendarPage /></PrivateRoute>} />
 
+      { /* 테스트 페이지 */}
       <Route path="/test/feedback" element={<GPTFeedbackTestPage />} />
+      <Route path="/test/cal-modal" element={<CalModalTestPage />} />
       
        {/* 404 page*/}
        <Route path="*" element={<NotFoundPage />} />
