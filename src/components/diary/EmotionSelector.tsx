@@ -1,18 +1,11 @@
 import React from 'react';
 import clsx from 'clsx';
+import { emotionList } from '@/types/emotionMap';
 
 interface EmotionSelectorProps {
   selected: number;
   onChange: (value: number) => void;
 }
-
-const emotionList = [
-  { value: 1, emoji: '😢', label: '슬픔' },
-  { value: 2, emoji: '😐', label: '무덤덤' },
-  { value: 3, emoji: '🙂', label: '보통' },
-  { value: 4, emoji: '😄', label: '좋음' },
-  { value: 5, emoji: '🤩', label: '최고' },
-];
 
 const EmotionSelector: React.FC<EmotionSelectorProps> = ({ selected, onChange }) => {
   return (
@@ -36,5 +29,6 @@ const EmotionSelector: React.FC<EmotionSelectorProps> = ({ selected, onChange })
     </div>
   );
 };
+
 
 export default EmotionSelector;

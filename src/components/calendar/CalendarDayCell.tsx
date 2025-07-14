@@ -1,9 +1,9 @@
 // src/components/calendar/CalendarDayCell.tsx
 
-import React, { useState } from 'react';
+import React from 'react';
 import clsx from 'clsx';
-
 import { diaryMockByDate } from '@/mocks/diaryMockByDate';
+import { emotionEmojiMap, EmotionLevel  } from '@/types/emotionMap';
 
 interface CalendarDayCellProps {
   date: string; // '13' 또는 '01' 같은 일자 문자열
@@ -15,11 +15,7 @@ interface CalendarDayCellProps {
   onClick?: (date: string) => void; // 👈 상위로 클릭 전달
 }
 
-const emotionEmojiMap = ['😭', '😢', '😐', '😊', '😄'];
-
 const CalendarDayCell = ({ date, hasSummary, weekday, isToday, year, month, onClick }: CalendarDayCellProps) => {
-  const [open, setOpen] = useState(false);
-
   // 날짜 조합: YYYY-MM-DD
   const paddedMonth = month.toString().padStart(2, '0');
   const paddedDay = date.toString().padStart(2, '0');
@@ -34,7 +30,10 @@ const CalendarDayCell = ({ date, hasSummary, weekday, isToday, year, month, onCl
       )
     : null;
 
-  const emotion = averageScore ? emotionEmojiMap[averageScore - 1] : null;
+  const emotion =
+    averageScore && averageScore >= 1 && averageScore <= 5
+      ? emotionEmojiMap[averageScore as EmotionLevel]
+      : null;
   const isClickable = !!emotion;
 
   const dayColor =
