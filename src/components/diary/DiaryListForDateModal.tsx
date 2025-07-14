@@ -1,15 +1,16 @@
 // src/components/diary/DiaryListForDateModal.tsx
-
 import { useState } from 'react';
-import { diaryMockByDate, DiaryEntry } from '@/mocks/diaryMockByDate';
+import { emotionEmojiMap, EmotionLevel  } from '@/types/emotionMap';
 import { X } from 'lucide-react';
+
+import { diaryMockByDate, DiaryEntry } from '@/mocks/diaryMockByDate';
 
 interface DiaryListForDateModalProps {
   date: string; // 'YYYY-MM-DD'
   onClose: () => void;
 }
 
-const emotionEmojiMap = ['😭', '😢', '😐', '😊', '😄'];
+//const emotionEmojiMap = ['😭', '😢', '😐', '😊', '😄'];
 
 const DiaryListForDateModal = ({ date, onClose }: DiaryListForDateModalProps) => {
   const [openEntryId, setOpenEntryId] = useState<string | null>(null);
@@ -38,7 +39,7 @@ const DiaryListForDateModal = ({ date, onClose }: DiaryListForDateModalProps) =>
 
             {openEntryId === entry.id && (
               <div className="mt-3 space-y-2 text-sm text-gray-800">
-                <div>😊 감정 상태: <span className="text-xl">{emotionEmojiMap[entry.emotionScore - 1]}</span></div>
+                <div>😊 감정 상태: <span className="text-xl">{emotionEmojiMap[entry.emotionScore as EmotionLevel]}</span></div>
                 <div>✅ 오늘의 습관: {entry.habits.join(', ') || '없음'}</div>
                 <div>💬 오늘의 기분 한마디: {entry.feelingKor} / <i>{entry.feelingEng}</i></div>
                 <div>📝 회고: {entry.content}</div>

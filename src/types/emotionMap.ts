@@ -1,4 +1,4 @@
-// src/constants/emotionMap.ts
+// src/types/emotionMap.ts
 
 export type EmotionLevel = 1 | 2 | 3 | 4 | 5;
 
