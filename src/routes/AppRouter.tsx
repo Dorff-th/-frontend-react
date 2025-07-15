@@ -1,12 +1,13 @@
 // src/routes/AppRouter.tsx
 import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import NotFoundPage from '@/pages/NotFoundPage';
 import LoginPage from '@/pages/LoginPage';
 import UserHomePage from '@/pages/UserHomePage';
 import PrivateRoute from './PrivateRoute';
 import DiaryInputPage from '@/pages/DiaryInputPage';
 import CalendarPage from '@/components/calendar/CalendarPage';
+import DiaryListPage from '@/pages/DiaryListPage';
 
 //test page
 import GPTFeedbackTestPage from '@/pages/test/GPTFeedbackTestPage';
@@ -31,9 +32,13 @@ const AppRouter = () => (
       { /* 캘린더 페이지 */}
       <Route path="/user/calendar" element={<PrivateRoute><CalendarPage /></PrivateRoute>} />
 
+      { /* 다이어리 목록 페이지 */}
+      <Route path="/user/diary-list" element={<PrivateRoute><DiaryListPage /></PrivateRoute>} />
+
       { /* 테스트 페이지 */}
       <Route path="/test/feedback" element={<GPTFeedbackTestPage />} />
-      <Route path="/test/cal-modal" element={<CalModalTestPage />} />
+      <Route path="/test/cal-modal" element={<CalModalTestPage />} />  
+      
       
        {/* 404 page*/}
        <Route path="*" element={<NotFoundPage />} />
