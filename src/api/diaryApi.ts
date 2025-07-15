@@ -10,6 +10,7 @@ export interface DiaryItemType {
   feelingEn: string;
   content: string;
   gptFeedback: string;
+  feedback: string;
 }
 
 export interface DiaryListResponse {
