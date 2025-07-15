@@ -13,14 +13,14 @@ export interface DiaryItemType {
   feedback: string;
 }
 
-// export interface DiaryListResponse {
-//   //content: DiaryItemType[];
-//   dtoList: DiaryItemType[];
-//   totalPages: number;
-//   page: number;
-// }
+export interface DiaryListResponse {
+  content: DiaryGroup[];
+  //dtoList: DiaryItemType[];
+  totalPages: number;
+  page: number;
+}
 
-export type DiaryListResponse = DiaryGroup[]; // 그냥 배열로 반환됨
+//export type DiaryListResponse = DiaryGroup[]; // 그냥 배열로 반환됨
 
 //new interfcace (2025.07.15 14:40 by GPT)
 export interface DiaryEntry {
@@ -43,7 +43,7 @@ export interface DiaryGroup {
 
 export const fetchDiaryList = async (page: number, size = 10) => {
   const response = await axiosInstance.get<DiaryListResponse>(
-    `/user/diary-list?page=${page}&size=${size}`
+    `/user/diary-list?page=${page-1}&size=${size}`
   );
 
   return response.data;
