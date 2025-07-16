@@ -2,8 +2,8 @@
 
 import React from 'react';
 import clsx from 'clsx';
-import { diaryMockByDate } from '@/mocks/diaryMockByDate';
 import { emotionEmojiMap, EmotionLevel } from '@/types/emotionMap';
+import { DiaryEntry} from '@/api/calendarApi';
 
 interface CalendarDayCellProps {
   date: string; // '13' 또는 '01'
@@ -13,6 +13,7 @@ interface CalendarDayCellProps {
   year: number;
   month: number; // 1~12
   onClick?: (date: string) => void;
+  diaryEntries?: DiaryEntry[];
 }
 
 const CalendarDayCell = ({
@@ -23,23 +24,22 @@ const CalendarDayCell = ({
   year,
   month,
   onClick,
+  diaryEntries
 }: CalendarDayCellProps) => {
   // YYYY-MM-DD
   const paddedMonth = month.toString().padStart(2, '0');
   const paddedDay = date.toString().padStart(2, '0');
   const fullDate = `${year}-${paddedMonth}-${paddedDay}`;
 
-  const diaryEntries = diaryMockByDate[fullDate]?.entries ?? [];
-  const hasDiary = diaryEntries.length > 0;
-
   // 평균 감정 점수 계산 (1~5 사이로 제한)
-  const averageScore = hasDiary
+  const averageScore =
+  diaryEntries?.length && diaryEntries.length > 0
     ? Math.min(
         5,
         Math.max(
           1,
           Math.round(
-            diaryEntries.reduce((sum, entry) => sum + entry.emotionScore, 0) /
+            diaryEntries.reduce((sum, entry) => sum + entry.emotion, 0) /
               diaryEntries.length
           )
         )

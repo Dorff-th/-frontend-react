@@ -14,9 +14,9 @@ export default function DiaryListPage() {
     const load = async () => {
       const data = await fetchDiaryList(page); // data: DiaryGroup[]
 
-      setDiaryGroups(data.content); // 그냥 배열이니까 그대로 저장
-      // totalPages는 서버에서 내려오지 않으므로 임시로 1페이지 고정 or 추후 분리 필요
-      setTotalPages(data.totalPages); // TODO: 서버에서 페이지 정보 내려오면 바꿔줘
+      setDiaryGroups(data.content); 
+      
+      setTotalPages(data.totalPages); 
     };
     load();
   }, [page]);

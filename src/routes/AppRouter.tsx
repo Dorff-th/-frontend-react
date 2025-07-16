@@ -35,13 +35,13 @@ const AppRouter = () => (
       { /* 다이어리 목록 페이지 */}
       <Route path="/user/diary-list" element={<PrivateRoute><DiaryListPage /></PrivateRoute>} />
 
+      {/* 404 page*/}
+       <Route path="*" element={<NotFoundPage />} />
+
       { /* 테스트 페이지 */}
       <Route path="/test/feedback" element={<GPTFeedbackTestPage />} />
       <Route path="/test/cal-modal" element={<CalModalTestPage />} />  
-      
-      
-       {/* 404 page*/}
-       <Route path="*" element={<NotFoundPage />} />
+       
     </Routes>
 
 );
