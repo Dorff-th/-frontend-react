@@ -10,16 +10,17 @@ interface DiaryListForDateModalProps {
   date: string; // 'YYYY-MM-DD'
   onClose: () => void;
   diaryEntries?: DiaryEntry[]; // 선택된 날짜의 회고 목록
+  summary : string
 }
 
-const DiaryListForDateModal = ({ date, onClose, diaryEntries }: DiaryListForDateModalProps) => {
+const DiaryListForDateModal = ({ date, onClose, diaryEntries, summary }: DiaryListForDateModalProps) => {
   const [openEntryId, setOpenEntryId] = useState<string | null>(null);
 
   const dayData = diaryEntries;
   const diaryList = dayData ?? [];
   
   //const gptSummary = dayData?.gptSummary;
-  const gptSummary = "GPT 요약은 아직 mock입니다!"; // Mock 데이터로 대체
+  //const gptSummary = "GPT 요약은 아직 mock입니다!"; // Mock 데이터로 대체
 
   // 최신순 정렬
   const sortedList = [...diaryList].sort((a, b) => Number(b.id) - Number(a.id));
@@ -39,9 +40,9 @@ const DiaryListForDateModal = ({ date, onClose, diaryEntries }: DiaryListForDate
         <h2 className="text-xl font-bold mb-4">📅 {date}</h2>
 
         {/* ✅ GPT 요약 또는 버튼 */}
-        {gptSummary ? (
+        {summary ? (
           <div className="mb-4 p-3 bg-yellow-100 text-sm rounded leading-relaxed text-yellow-800">
-            <strong>GPT 요약:</strong> {gptSummary}
+            <strong>GPT 요약:</strong> {summary}
           </div>
         ) : (
           <button

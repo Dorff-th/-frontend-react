@@ -155,6 +155,7 @@ const Calendar = () => {
           date={selectedDate}
           onClose={() => setSelectedDate(null)}
           diaryEntries={diaryMapByDate[selectedDate].entries ?? []}
+          summary={diaryMapByDate[selectedDate].summary || ''} // 요약도 넘김
         />
       )}
 
