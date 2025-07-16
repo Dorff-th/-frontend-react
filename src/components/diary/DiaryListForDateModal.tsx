@@ -2,20 +2,24 @@
 import { useState } from 'react';
 import { emotionEmojiMap, EmotionLevel } from '@/types/emotionMap';
 import { X } from 'lucide-react';
+import { DiaryEntry} from '@/api/calendarApi';
 
-import { diaryMockByDate, DiaryEntry } from '@/mocks/diaryMockByDate';
+//import { diaryMockByDate, DiaryEntry } from '@/mocks/diaryMockByDate';
 
 interface DiaryListForDateModalProps {
   date: string; // 'YYYY-MM-DD'
   onClose: () => void;
+  diaryEntries?: DiaryEntry[]; // 선택된 날짜의 회고 목록
 }
 
-const DiaryListForDateModal = ({ date, onClose }: DiaryListForDateModalProps) => {
+const DiaryListForDateModal = ({ date, onClose, diaryEntries }: DiaryListForDateModalProps) => {
   const [openEntryId, setOpenEntryId] = useState<string | null>(null);
 
-  const dayData = diaryMockByDate[date];
-  const diaryList = dayData?.entries ?? [];
-  const gptSummary = dayData?.gptSummary;
+  const dayData = diaryEntries;
+  const diaryList = dayData ?? [];
+  
+  //const gptSummary = dayData?.gptSummary;
+  const gptSummary = "GPT 요약은 아직 mock입니다!"; // Mock 데이터로 대체
 
   // 최신순 정렬
   const sortedList = [...diaryList].sort((a, b) => Number(b.id) - Number(a.id));
@@ -50,6 +54,7 @@ const DiaryListForDateModal = ({ date, onClose }: DiaryListForDateModalProps) =>
 
         {/* ✅ 회고 목록 */}
         {sortedList.map((entry, idx) => (
+
           <div key={entry.id} className="mb-4 border rounded-md p-3">
             <button
               className="w-full text-left font-semibold text-blue-900 hover:underline"
@@ -63,12 +68,12 @@ const DiaryListForDateModal = ({ date, onClose }: DiaryListForDateModalProps) =>
                 <div>
                   😊 감정 상태:{' '}
                   <span className="text-xl">
-                    {emotionEmojiMap[entry.emotionScore as EmotionLevel]}
+                    {emotionEmojiMap[entry.emotion as EmotionLevel]}
                   </span>
                 </div>
-                <div>✅ 오늘의 습관: {entry.habits.join(', ') || '없음'}</div>
+                <div>✅ 오늘의 습관: {entry.habitTags.join(', ') || '없음'}</div>
                 <div>
-                  💬 오늘의 기분 한마디: {entry.feelingKor} / <i>{entry.feelingEng}</i>
+                  💬 오늘의 기분 한마디: {entry.feelingKo} / <i>{entry.feelingEn}</i>
                 </div>
                 <div>📝 회고: {entry.content}</div>
                 <div>🤖 GPT 피드백: {entry.gptFeedback}</div>

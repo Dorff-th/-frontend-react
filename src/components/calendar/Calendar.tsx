@@ -61,7 +61,7 @@ const Calendar = () => {
   // 날짜 클릭 핸들러
   // 날짜가 다이어리가 있는 경우에만 DiaryListForDateModal을 열도록
   const hasDiaryForDate = (fullDate: string): boolean => {
-    console.log('Checking diary for date:', fullDate);
+    
     return diaryMapByDate[fullDate]?.entries.length > 0;
   };
 
@@ -128,8 +128,8 @@ const Calendar = () => {
           today.getMonth() === dateObj.getMonth() &&
           today.getDate() === dateObj.getDate();
         
-        const paddedMonth = String(dateObj.getMonth() + 1).padStart(2, '0');
-        const paddedDay = String(dateObj.getDate()).padStart(2, '0');
+        //const paddedMonth = String(dateObj.getMonth() + 1).padStart(2, '0');
+        //const paddedDay = String(dateObj.getDate()).padStart(2, '0');
         //const fullDate = `${year}-${paddedMonth}-${paddedDay}`;
         const fullDate = day.date;
 
@@ -154,6 +154,7 @@ const Calendar = () => {
         <DiaryListForDateModal
           date={selectedDate}
           onClose={() => setSelectedDate(null)}
+          diaryEntries={diaryMapByDate[selectedDate].entries ?? []}
         />
       )}
 
