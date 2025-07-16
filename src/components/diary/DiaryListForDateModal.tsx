@@ -77,7 +77,7 @@ const DiaryListForDateModal = ({ date, onClose, diaryEntries, summary }: DiaryLi
                   💬 오늘의 기분 한마디: {entry.feelingKo} / <i>{entry.feelingEn}</i>
                 </div>
                 <div>📝 회고: {entry.content}</div>
-                <div>🤖 GPT 피드백: {entry.gptFeedback}</div>
+                <div>🤖 GPT 피드백: {entry.feedback}</div>
               </div>
             )}
           </div>

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import axiosInstance from '@/api/axiosInstance';
 import clsx from 'clsx';
+import { useToastHelper } from '@/components/toast/toastHelper';
 
 interface FeelingInputProps {
   value: string;
@@ -14,23 +16,31 @@ const FeelingInput: React.FC<FeelingInputProps> = ({
   selectedEnglish,
   onEnglishSelect
 }) => {
-  const [suggestions, setSuggestions] = useState<string[]>([]);
 
-  // ⚠️ 실제 GPT 연동은 나중에!
-  const mockGPT = (input: string) => {
-    if (!input.trim()) return;
-    const sample = [
-      "I'm feeling off today.",
-      "Today felt a bit draining.",
-      "I wasn't myself today.",
-      "It was an emotionally tough day.",
-      "My energy was low today."
-    ];
-    setSuggestions(sample);
+  const { showError } = useToastHelper();
+
+  const [suggestions, setSuggestions] = useState<string[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  const fetchGptSuggestions = async (feelingKo: string) => {
+    if (!feelingKo.trim()) return;
+    setLoading(true);
+    try {
+      const response = await axiosInstance.post('/gpt/feeling-suggestions', {
+        feelingKo
+      });
+      setSuggestions(response.data.suggestions || []);
+    } catch (error) {
+      showError('GPT 영어 표현 추천 실패');
+      console.error('GPT 추천 실패:', error);
+      setSuggestions([]);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleGenerate = () => {
-    mockGPT(value); // 나중에 GPT 호출로 변경
+    fetchGptSuggestions(value);
   };
 
   return (
@@ -46,9 +56,10 @@ const FeelingInput: React.FC<FeelingInputProps> = ({
         />
         <button
           onClick={handleGenerate}
+          disabled={loading}
           className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
         >
-          GPT 추천
+          {loading ? '추천 중...' : 'GPT 추천'}
         </button>
       </div>
 

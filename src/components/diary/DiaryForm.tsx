@@ -8,6 +8,8 @@ import FeedbackTypeSelect from './FeedbackTypeSelect';
 import SubmitButton from './SubmitButton';
 import GPTFeedbackModal from '@/components/feedback/GPTFeedbackModal';
 import { FeedbackType } from '@/types/feedbackTypes';
+import axiosInstance from '@/api/axiosInstance';
+import { format } from 'date-fns';
 
 const DiaryForm: React.FC = () => {
   // 상태 선언
@@ -16,22 +18,27 @@ const DiaryForm: React.FC = () => {
   const [feelingText, setFeelingText] = useState('');
   const [feelingEnglish, setFeelingEnglish] = useState('');
   const [diary, setDiary] = useState('');
-  const [feedbackType, setFeedbackType] = useState<FeedbackType>('random'); // 기본값은 랜덤
+  const [feedbackType, setFeedbackType] = useState<FeedbackType>('random');
 
-
-  //GTP 피드백 모달 상태
+  // GTP 피드백 모달 상태
   const [showModal, setShowModal] = useState(false);
-
-  // GTP 피드백 메시지 상태
   const [gptMessage, setGptMessage] = useState('');
-
-  // 저장 상태
   const [isSaving, setIsSaving] = useState(false);
-  //const [gptFeedback, setGptFeedback] = useState('');
 
-  // 네비게이션 훅
-   const navigate = useNavigate();
-   
+  const navigate = useNavigate();
+
+  const fetchGptFeedback = async (content: string, feedbackType: FeedbackType): Promise<string> => {
+    try {
+      const response = await axiosInstance.post('/gpt/diary-feedback', {
+        content,
+        feedbackType,
+      });
+      return response.data.feedback;
+    } catch (error) {
+      console.error('GPT 피드백 실패:', error);
+      return '오늘도 수고했어요. 내일은 더 잘할 수 있을 거예요!'; // fallback
+    }
+  };
 
   // 저장 버튼 클릭 처리
   const handleSubmit = async () => {
@@ -40,16 +47,33 @@ const DiaryForm: React.FC = () => {
       return;
     }
 
-    // ✅ 임시 GPT 메시지 (API 연결 전)
-    setGptMessage('괜찮아요, 오늘도 애썼어요. 🐰');
-    setShowModal(true);
-    
+    setIsSaving(true);
+    setShowModal(true); // 모달 먼저 열고
 
-   try {
-      // ✅ 실제 DB 저장 API 호출
-      await fakeSaveDiary();
+    try {
+      // 1. GPT 피드백 생성
+      const gptFeedback = await fetchGptFeedback(diary, feedbackType);
+      //const gptFeedback = ' gptFeedBack 테스트.   '; // Mock 데이터로 대체
+      console.log('GPT 피드백:', gptFeedback);
+      setGptMessage(gptFeedback); // 모달에 바로 표시됨
+
+      // 2. 회고 저장 요청
+      const payload = {
+        diaryDate: format(new Date(), 'yyyy-MM-dd'),
+        emotionScore: emotion,
+        habitTags: habits,
+        feelingKo: feelingText,
+        feelingEn: feelingEnglish,
+        content: diary,
+        feedback: gptFeedback,
+      };
+
+      await axiosInstance.post('/user/diary', payload);
     } catch (e) {
-      // TODO: 에러 처리 (toast 등)
+      console.error('저장 중 오류 발생:', e);
+      setGptMessage('저장에 실패했어요. 다시 시도해주세요. 😢');
+    } finally {
+      setIsSaving(false);
     }
   };
 
@@ -69,7 +93,6 @@ const DiaryForm: React.FC = () => {
       <FeedbackTypeSelect value={feedbackType} onChange={setFeedbackType} />
       <SubmitButton isLoading={isSaving} onClick={handleSubmit} />
 
-      {/* GPT 피드백 카드 표시 */}
       {showModal && (
         <GPTFeedbackModal
           message={gptMessage}
@@ -86,8 +109,3 @@ const DiaryForm: React.FC = () => {
 };
 
 export default DiaryForm;
-
-// 💡 임시 저장 API 함수
-const fakeSaveDiary = async () => {
-  await new Promise((res) => setTimeout(res, 1000));
-};

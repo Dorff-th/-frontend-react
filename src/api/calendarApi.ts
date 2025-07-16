@@ -11,7 +11,7 @@ export type DiaryEntry = {
   feelingKo: string;
   feelingEn: string;
   content: string;
-  gptFeedback: string;
+  feedback: string;
 };
 
 export type DailyDiaryData = {
