@@ -25,6 +25,9 @@ const DiaryForm: React.FC = () => {
   const [gptMessage, setGptMessage] = useState('');
   const [isSaving, setIsSaving] = useState(false);
 
+  //저장 성공 / 실패 여부 state
+  const [isSaveSuccess, setIsSaveSuccess] = useState(false);
+
   const navigate = useNavigate();
 
   const fetchGptFeedback = async (content: string, feedbackType: FeedbackType): Promise<string> => {
@@ -54,7 +57,6 @@ const DiaryForm: React.FC = () => {
       // 1. GPT 피드백 생성
       const gptFeedback = await fetchGptFeedback(diary, feedbackType);
       //const gptFeedback = ' gptFeedBack 테스트.   '; // Mock 데이터로 대체
-      console.log('GPT 피드백:', gptFeedback);
       setGptMessage(gptFeedback); // 모달에 바로 표시됨
 
       // 2. 회고 저장 요청
@@ -69,9 +71,12 @@ const DiaryForm: React.FC = () => {
       };
 
       await axiosInstance.post('/user/diary', payload);
+
+      setIsSaveSuccess(true); // ✅ 저장 성공
     } catch (e) {
       console.error('저장 중 오류 발생:', e);
       setGptMessage('저장에 실패했어요. 다시 시도해주세요. 😢');
+      setIsSaveSuccess(false); // ❌ 저장 실패
     } finally {
       setIsSaving(false);
     }
@@ -99,7 +104,9 @@ const DiaryForm: React.FC = () => {
           type={feedbackType}
           onClose={() => {
             setShowModal(false);
-            navigate('/user/calendar');
+            if (isSaveSuccess) {
+              navigate('/user/calendar'); // ✅ 성공한 경우에만 이동
+            }
           }}
           duration={3000}
         />
