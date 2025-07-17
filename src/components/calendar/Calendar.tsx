@@ -155,8 +155,18 @@ const Calendar = () => {
           date={selectedDate}
           onClose={() => setSelectedDate(null)}
           diaryEntries={diaryMapByDate[selectedDate].entries ?? []}
-          summary={diaryMapByDate[selectedDate].summary || ''} // 요약도 넘김
+          summary={diaryMapByDate[selectedDate].summary || ''}
+          onSummaryGenerated={(newSummary: string) => {
+            // ✅ monthlyData 업데이트
+            setMonthlyData((prev) =>
+              prev.map((item) =>
+                item.date === selectedDate
+                ? { ...item, summary: newSummary }: item
+                )
+              );
+            }}
         />
+
       )}
 
     </div>

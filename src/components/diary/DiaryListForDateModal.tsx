@@ -3,18 +3,22 @@ import { useState } from 'react';
 import { emotionEmojiMap, EmotionLevel } from '@/types/emotionMap';
 import { X } from 'lucide-react';
 import { DiaryEntry} from '@/api/calendarApi';
+import { generateGptSummary } from '@/api/gptSummaryApi'; // ✅ 추가
+import { useToastHelper } from '@/components/toast/toastHelper';
 
-//import { diaryMockByDate, DiaryEntry } from '@/mocks/diaryMockByDate';
 
 interface DiaryListForDateModalProps {
   date: string; // 'YYYY-MM-DD'
   onClose: () => void;
   diaryEntries?: DiaryEntry[]; // 선택된 날짜의 회고 목록
   summary : string
+  onSummaryGenerated?: (newSummary: string) => void; // ✅ 추가
 }
 
-const DiaryListForDateModal = ({ date, onClose, diaryEntries, summary }: DiaryListForDateModalProps) => {
+const DiaryListForDateModal = ({ date, onClose, diaryEntries, summary, onSummaryGenerated }: DiaryListForDateModalProps) => {
   const [openEntryId, setOpenEntryId] = useState<string | null>(null);
+  const [gptSummary, setGptSummary] = useState<string | null>(summary || null);
+  const [loading, setLoading] = useState(false);
 
   const dayData = diaryEntries;
   const diaryList = dayData ?? [];
@@ -25,9 +29,20 @@ const DiaryListForDateModal = ({ date, onClose, diaryEntries, summary }: DiaryLi
   // 최신순 정렬
   const sortedList = [...diaryList].sort((a, b) => Number(b.id) - Number(a.id));
 
-  const handleGptSummaryClick = () => {
-    alert('🧠 GPT 요약 생성 기능은 아직 mock입니다!');
-    // 실제 구현 시 이 부분에서 API 호출 또는 상태 업데이트
+  const { showError, showSuccess } = useToastHelper();
+
+  const handleGptSummaryClick = async() => {
+    try {
+      setLoading(true);
+      const result = await generateGptSummary(date);
+      setGptSummary(result);
+      onSummaryGenerated?.(result);
+      showSuccess('GPT 요약 생성 완료!');
+    } catch (error) {
+      showError('GPT 요약 생성 중 오류 발생!');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -40,22 +55,22 @@ const DiaryListForDateModal = ({ date, onClose, diaryEntries, summary }: DiaryLi
         <h2 className="text-xl font-bold mb-4">📅 {date}</h2>
 
         {/* ✅ GPT 요약 또는 버튼 */}
-        {summary ? (
+        {gptSummary ? (
           <div className="mb-4 p-3 bg-yellow-100 text-sm rounded leading-relaxed text-yellow-800">
-            <strong>GPT 요약:</strong> {summary}
+            <strong>GPT 요약:</strong> {gptSummary}
           </div>
         ) : (
           <button
             onClick={handleGptSummaryClick}
+            disabled={loading}
             className="mb-4 px-4 py-2 bg-blue-600 text-white text-sm rounded hover:bg-blue-700"
           >
-            🧠 GPT 요약 생성
+            {loading ? 'GPT 요약 생성 중...' : '🧠 GPT 요약 생성'}
           </button>
         )}
 
-        {/* ✅ 회고 목록 */}
+        {/* 회고 리스트는 그대로 유지 */}
         {sortedList.map((entry, idx) => (
-
           <div key={entry.id} className="mb-4 border rounded-md p-3">
             <button
               className="w-full text-left font-semibold text-blue-900 hover:underline"
