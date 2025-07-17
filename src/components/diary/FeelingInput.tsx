@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axiosInstance from '@/api/axiosInstance';
 import clsx from 'clsx';
 import { useToastHelper } from '@/components/toast/toastHelper';
+import GptFeelingLoadingModal from '@/components/loading/GptFeelingLoadingModal'; 
 
 interface FeelingInputProps {
   value: string;
@@ -26,9 +27,11 @@ const FeelingInput: React.FC<FeelingInputProps> = ({
     if (!feelingKo.trim()) return;
     setLoading(true);
     try {
-      const response = await axiosInstance.post('/gpt/feeling-suggestions', {
-        feelingKo
-      });
+      const response = await axiosInstance.post(
+        '/gpt/feeling-suggestions', 
+        {feelingKo},
+        { meta: { skipGlobalLoading: true } } as any// 요게 핵심! 👈
+      );
       setSuggestions(response.data.suggestions || []);
     } catch (error) {
       showError('GPT 영어 표현 추천 실패');
@@ -44,6 +47,8 @@ const FeelingInput: React.FC<FeelingInputProps> = ({
   };
 
   return (
+    <>
+    <GptFeelingLoadingModal isOpen={loading} />
     <div className="bg-gradient-to-b from-blue-100 to-blue-50 dark:from-gray-800 dark:to-gray-700 shadow-lg transition-colors duration-500 rounded-2xl p-4 mb-6 border border-gray-200 dark:border-gray-700">
       <h3 className="text-lg font-semibold mb-2">오늘 기분 한마디 (한글로)</h3>
       <div className="flex gap-2 mb-3">
@@ -82,6 +87,7 @@ const FeelingInput: React.FC<FeelingInputProps> = ({
         </div>
       )}
     </div>
+    </>
   );
 };
 
