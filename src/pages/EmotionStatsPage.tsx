@@ -9,6 +9,7 @@ import DayOfWeekBarChart from '@/components/statistics/DayOfWeekBarChart';
 import { getDateRange} from '@/utils/dateUtils';
 import { PeriodOption } from '@/types/statisticsTypes';
 import Header from '@/components/layout/Header';
+import EmotionSummaryCard from '@/components/statistics/EmotionSummaryCard';
 
 const EmotionStatsPage = () => {
   const [period, setPeriod] = useState<PeriodOption>('this-month');
@@ -98,9 +99,10 @@ const EmotionStatsPage = () => {
           <div className="text-lg">
             평균 감정 점수: <strong>{data.averageEmotion.toFixed(2)}</strong>
           </div>
-          <EmotionBarChart frequency={data.emotionFrequency} />
-          <WeeklyLineChart trend={data.weeklyTrend} />
-          <DayOfWeekBarChart dayAverage={data.dayOfWeekAverage} />
+          <EmotionSummaryCard average={data.averageEmotion} />
+    <EmotionBarChart frequency={data.emotionFrequency} />
+    <WeeklyLineChart trend={data.weeklyTrend} />
+    <DayOfWeekBarChart dayAverage={data.dayOfWeekAverage} />
         </>
       )}
     </div>
