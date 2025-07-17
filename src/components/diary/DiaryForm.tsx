@@ -12,7 +12,6 @@ import axiosInstance from '@/api/axiosInstance';
 import { format } from 'date-fns';
 
 const DiaryForm: React.FC = () => {
-  // 상태 선언
   const [emotion, setEmotion] = useState<number>(0);
   const [habits, setHabits] = useState<string[]>([]);
   const [feelingText, setFeelingText] = useState('');
@@ -20,17 +19,17 @@ const DiaryForm: React.FC = () => {
   const [diary, setDiary] = useState('');
   const [feedbackType, setFeedbackType] = useState<FeedbackType>('random');
 
-  // GTP 피드백 모달 상태
   const [showModal, setShowModal] = useState(false);
   const [gptMessage, setGptMessage] = useState('');
   const [isSaving, setIsSaving] = useState(false);
-
-  //저장 성공 / 실패 여부 state
   const [isSaveSuccess, setIsSaveSuccess] = useState(false);
 
   const navigate = useNavigate();
 
   const fetchGptFeedback = async (content: string, feedbackType: FeedbackType): Promise<string> => {
+    setGptMessage('🤖 GPT 피드백 생성 중입니다...');
+    setShowModal(true); // 모달 먼저 띄우기
+
     try {
       const response = await axiosInstance.post('/gpt/diary-feedback', {
         content,
@@ -43,7 +42,6 @@ const DiaryForm: React.FC = () => {
     }
   };
 
-  // 저장 버튼 클릭 처리
   const handleSubmit = async () => {
     if (!emotion || !diary.trim()) {
       alert('감정과 회고 일기를 작성해주세요!');
@@ -51,13 +49,12 @@ const DiaryForm: React.FC = () => {
     }
 
     setIsSaving(true);
-    setShowModal(true); // 모달 먼저 열고
+    setIsSaveSuccess(false); // 초기화
 
     try {
       // 1. GPT 피드백 생성
       const gptFeedback = await fetchGptFeedback(diary, feedbackType);
-      //const gptFeedback = ' gptFeedBack 테스트.   '; // Mock 데이터로 대체
-      setGptMessage(gptFeedback); // 모달에 바로 표시됨
+      setGptMessage(gptFeedback); // ✅ 모달 내 문구 교체
 
       // 2. 회고 저장 요청
       const payload = {
@@ -71,12 +68,11 @@ const DiaryForm: React.FC = () => {
       };
 
       await axiosInstance.post('/user/diary', payload);
-
-      setIsSaveSuccess(true); // ✅ 저장 성공
+      setIsSaveSuccess(true);
     } catch (e) {
       console.error('저장 중 오류 발생:', e);
       setGptMessage('저장에 실패했어요. 다시 시도해주세요. 😢');
-      setIsSaveSuccess(false); // ❌ 저장 실패
+      setIsSaveSuccess(false);
     } finally {
       setIsSaving(false);
     }
@@ -105,7 +101,7 @@ const DiaryForm: React.FC = () => {
           onClose={() => {
             setShowModal(false);
             if (isSaveSuccess) {
-              navigate('/user/calendar'); // ✅ 성공한 경우에만 이동
+              navigate('/user/calendar');
             }
           }}
           duration={3000}
