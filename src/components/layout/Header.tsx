@@ -24,7 +24,7 @@ const Header = () => {
     { path: '/user/diary-form', label: '✍️ 회고 쓰기' },
     { path: '/user/calendar', label: '📆 회고 달력' },
     { path: '/user/diary-list', label: '📜 회고 목록' },
-    { path: '/user/stats', label: '📊 감정 분석' },
+    { path: '/user/diary-insights', label: '📊 감정 분석' },
   ];
 
   return (

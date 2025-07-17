@@ -8,6 +8,7 @@ import PrivateRoute from './PrivateRoute';
 import DiaryInputPage from '@/pages/DiaryInputPage';
 import CalendarPage from '@/components/calendar/CalendarPage';
 import DiaryListPage from '@/pages/DiaryListPage';
+import DiaryInsightsPage from '@/pages/EmotionStatsPage';
 
 //test page
 import GPTFeedbackTestPage from '@/pages/test/GPTFeedbackTestPage';
@@ -34,6 +35,9 @@ const AppRouter = () => (
 
       { /* 다이어리 목록 페이지 */}
       <Route path="/user/diary-list" element={<PrivateRoute><DiaryListPage /></PrivateRoute>} />
+
+      { /* 감정 통계 페이지 */}
+      <Route path="/user/diary-insights" element={<PrivateRoute><DiaryInsightsPage /></PrivateRoute>} />
 
       {/* 404 page*/}
        <Route path="*" element={<NotFoundPage />} />
