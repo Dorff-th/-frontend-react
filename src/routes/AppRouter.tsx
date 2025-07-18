@@ -10,10 +10,6 @@ import CalendarPage from '@/components/calendar/CalendarPage';
 import DiaryListPage from '@/pages/DiaryListPage';
 import DiaryInsightsPage from '@/pages/EmotionStatsPage';
 
-//test page
-import GPTFeedbackTestPage from '@/pages/test/GPTFeedbackTestPage';
-import CalModalTestPage from '@/pages/test/CalModalTestPage';
-
 const AppRouter = () => (
 
     <Routes>
@@ -41,10 +37,6 @@ const AppRouter = () => (
 
       {/* 404 page*/}
        <Route path="*" element={<NotFoundPage />} />
-
-      { /* 테스트 페이지 */}
-      <Route path="/test/feedback" element={<GPTFeedbackTestPage />} />
-      <Route path="/test/cal-modal" element={<CalModalTestPage />} />  
        
     </Routes>
 
