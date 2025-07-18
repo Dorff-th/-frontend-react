@@ -1,13 +1,13 @@
 // src/App.tsx
 
 import React, { useEffect, useState } from 'react';
-import { AuthProvider } from '@/context/AuthContext';
-import AppRouter from '@/routes/AppRouter';
-import { EmotionToastProvider } from '@/components/toast/EmotionToastProvider';
-import { EmotionToastContainer } from '@/components/toast/EmotionToastContainer';
-import { LoadingProvider } from '@/context/LoadingContext';
-import LoadingOverlay from '@/components/overlay/LoadingOverlay';
-import { ThemeProvider } from './context/ThemeContext';
+import { AuthProvider } from '@/features/auth/context/AuthContext';
+import AppRouter from '@/app/routes/AppRouter';
+import { EmotionToastProvider } from '@/features/toast/context/EmotionToastProvider';
+import { EmotionToastContainer } from '@/features/toast/components/EmotionToastContainer';
+import { LoadingProvider } from '@/features/system/context/LoadingContext';
+import LoadingOverlay from '@/features/ui/components/LoadingOverlay';
+import { ThemeProvider } from '@/features/system/context/ThemeContext';
 
 const App = () => {
 
