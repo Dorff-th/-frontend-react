@@ -9,6 +9,7 @@ import DiaryInputPage from '@/features/diary/pages/DiaryInputPage';
 import CalendarPage from '@/features/calendar/pages/CalendarPage';
 import DiaryListPage from '@/features/diary/pages/DiaryListPage';
 import DiaryInsightsPage from '@/features/statistics/pages/EmotionStatsPage';
+import SearchResultPage from '@/features/search/pages/SearchResultPage';  
 
 const AppRouter = () => (
 
@@ -35,6 +36,8 @@ const AppRouter = () => (
       { /* 감정 통계 페이지 */}
       <Route path="/user/diary-insights" element={<PrivateRoute><DiaryInsightsPage /></PrivateRoute>} />
 
+      {/* 검색 결과 페이지 (추후 PrivateRoute 적용 필요) */}
+      <Route path="/user/search-result" element={<SearchResultPage />} /> 
       {/* 404 page*/}
        <Route path="*" element={<NotFoundPage />} />
        
