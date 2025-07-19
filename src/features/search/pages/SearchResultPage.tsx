@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useNavigate  } from 'react-router-dom';
 import axiosInstance from '@/lib/axios/axiosInstance';
 import Header from '@/features/layout/components/Header';
 import EmotionRangeSlider from '@/features/ui/components/EmotionRangeSlider';
@@ -32,34 +32,59 @@ const SearchResultPage = () => {
   const [endDate, setEndDate] = useState<Date | null>(null);
   const formatDate = (date: Date) => date.toISOString().split('T')[0];
 
-  const [searchParams] = useSearchParams();
-  const query = searchParams.get('query') ?? '';
   const [selectedFields, setSelectedFields] = useState<string[]>([]);
-  const [results, setResults] = useState([]);
-
   const effectiveFields = selectedFields.length > 0 ? selectedFields : defaultFields;
 
-  const handleSearchClick = async () => {
+  const [results, setResults] = useState([]);
+  const [totalPages, setTotalPages] = useState(1); // ✅ 추가
+  const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
+
+  const query = searchParams.get('query') ?? '';
+  const page = parseInt(searchParams.get('page') ?? '1', 10);
+  const size = parseInt(searchParams.get('size') ?? '10', 10);
+
+  const fetchResults = async () => {
     try {
-      const response = await axiosInstance.post('/user/diary-search', {
+      const response = await axiosInstance.post(`/user/diary-search?page=${page - 1}&size=${size}`, {
         query,
         fields: effectiveFields,
         emotionMap: {
           min: emotionRange[0],
-          max: emotionRange[1]
+          max: emotionRange[1],
         },
         diaryDateMap:
           startDate && endDate
-          ? {
-            startDate: formatDate(startDate),
-            endDate: formatDate(endDate),
-          }
-          : undefined,
-        });
-      setResults(response.data);
+            ? {
+                startDate: formatDate(startDate),
+                endDate: formatDate(endDate),
+              }
+            : undefined,
+      });
+      setResults(response.data.content || []);
+      setTotalPages(response.data.totalPages || 1); // ✅ totalPages 세팅
     } catch (error) {
       console.error('검색 실패:', error);
     }
+  };
+
+  useEffect(() => {
+    fetchResults();
+  }, [searchParams]);
+
+  const handleSearchClick = () => {
+    setSearchParams({
+      query,
+      page: '1',
+      size: size.toString(),
+    });
+  };
+
+    const handlePageChange = (newPage: number) => {
+    setSearchParams((prev) => {
+      prev.set('page', String(newPage));
+      return prev;
+    });
   };
 
 
@@ -128,7 +153,7 @@ const SearchResultPage = () => {
   {/* 검색 버튼 */}
   <div className="flex justify-end">
     <button
-      onClick={handleSearchClick}
+      onClick={fetchResults}
       className="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-md transition duration-200"
     >
       🔍 검색
@@ -160,6 +185,24 @@ const SearchResultPage = () => {
           </li>
         ))}
       </ul>
+       {/* ✅ 페이징 UI */}
+          <div className="flex justify-center gap-3 mt-6">
+            <button
+              onClick={() => handlePageChange(page - 1)}
+              disabled={page <= 1}
+              className="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300 disabled:opacity-50"
+            >
+              ◀ 이전
+            </button>
+            <span className="text-sm text-gray-700">{page} / {totalPages}</span>
+            <button
+              onClick={() => handlePageChange(page + 1)}
+              disabled={page >= totalPages}
+              className="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300 disabled:opacity-50"
+            >
+              다음 ▶
+            </button>
+          </div>
     </div>
     </div>
     </>

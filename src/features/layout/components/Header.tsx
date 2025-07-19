@@ -23,7 +23,8 @@ const Header = () => {
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      navigate(`/user/search-result?query=${encodeURIComponent(searchQuery)}`);
+      //navigate(`/user/search-result?query=${encodeURIComponent(searchQuery)}`);
+      navigate(`/user/search-result?query=${encodeURIComponent(searchQuery)}&page=1&size=10`);
     }
   };
 
