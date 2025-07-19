@@ -36,8 +36,10 @@ const AppRouter = () => (
       { /* 감정 통계 페이지 */}
       <Route path="/user/diary-insights" element={<PrivateRoute><DiaryInsightsPage /></PrivateRoute>} />
 
-      {/* 검색 결과 페이지 (추후 PrivateRoute 적용 필요) */}
-      <Route path="/user/search-result" element={<SearchResultPage />} /> 
+      {/* 검색 결과 페이지  */}
+      {/* <Route path="/user/search-result" element={<SearchResultPage />} />  */}
+      <Route path="/user/search-result" element={<PrivateRoute><SearchResultPage /></PrivateRoute>} />
+
       {/* 404 page*/}
        <Route path="*" element={<NotFoundPage />} />
        
