@@ -28,7 +28,7 @@ const FeelingInput: React.FC<FeelingInputProps> = ({
     setLoading(true);
     try {
       const response = await axiosInstance.post(
-        '/gpt/feeling-suggestions', 
+        '/user/gpt/feeling', 
         {feelingKo},
         { meta: { skipGlobalLoading: true } } as any// 요게 핵심! 👈
       );

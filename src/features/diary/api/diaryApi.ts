@@ -43,7 +43,7 @@ export interface DiaryGroup {
 
 export const fetchDiaryList = async (page: number, size = 10) => {
   const response = await axiosInstance.get<DiaryListResponse>(
-    `/user/diary-list?page=${page-1}&size=${size}`
+    `/user/diaries?page=${page-1}&size=${size}`
   );
 
   return response.data;

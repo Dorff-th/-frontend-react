@@ -11,6 +11,7 @@ export const createGptSummary = async (): Promise<{ summary: string }> => {
   return res.data;
 };
 
+//추후 수정 필요!
 export const createGptFeedback = async (): Promise<{ feedback: string }> => {
   const res = await axiosInstance.post('/gpt/feedback');
   return res.data;

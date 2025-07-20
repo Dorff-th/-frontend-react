@@ -7,7 +7,7 @@ import DiaryTextarea from './DiaryTextarea';
 import FeedbackTypeSelect from './FeedbackTypeSelect';
 import SubmitButton from './SubmitButton';
 import GPTFeedbackModal from '@/features/gpt/components/GPTFeedbackModal';
-import { FeedbackType } from '@/types/feedbackTypes';
+import { FeedbackType } from '@/features/gpt/types/feedbackTypes';
 import axiosInstance from "@/lib/axios/axiosInstance";
 import { format } from 'date-fns';
 
@@ -31,7 +31,7 @@ const DiaryForm: React.FC = () => {
     setShowModal(true); // 모달 먼저 띄우기
 
     try {
-      const response = await axiosInstance.post('/gpt/diary-feedback', {
+      const response = await axiosInstance.post('/user/gpt/diary-feedback', {
         content,
         feedbackType,
       });
