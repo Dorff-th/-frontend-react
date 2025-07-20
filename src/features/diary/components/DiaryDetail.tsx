@@ -5,10 +5,14 @@ export default function DiaryDetail({ diary }: { diary: DiaryEntry }) {
   const emotionValue = Number(diary.emotion);
   const emotionEmoji = emotionEmojiMap[emotionValue as EmotionLevel] ?? '😶';
   const emotionLabel = emotionLabelMap[emotionValue as EmotionLevel] ?? '';
-  
-  const cleanedTags = diary.habitTags.map(tag => tag.replace(/"/g, ''));
-  const displayText = cleanedTags.join(', ');
-  
+
+  const parsedHabits = (() => {
+    try {
+      return JSON.parse(diary.habitTags);
+    } catch (e) {
+      return [];
+    }
+  })();
 
   return (
     <div className="p-4 rounded-xl shadow-md bg-white dark:bg-gray-800 space-y-4">
@@ -20,9 +24,9 @@ export default function DiaryDetail({ diary }: { diary: DiaryEntry }) {
       </div>
 
       <div className="text-sm text-gray-600 dark:text-gray-400">
-        ✅ 완료한 습관:{' '}
+        ✅ 완료한 습관?:{' '}
         <span className="font-medium text-black dark:text-white">
-          {displayText}
+          {parsedHabits.join(', ') || '없음'}
         </span>
       </div>
       <div className="text-sm text-gray-600 dark:text-gray-400">
