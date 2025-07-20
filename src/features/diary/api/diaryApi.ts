@@ -30,7 +30,7 @@ export interface DiaryEntry {
   feedback: string;
   feelingKo: string;
   feelingEn: string;
-  habitTags: string[];
+  habitTags: string;
   createdAt: string;
 }
 

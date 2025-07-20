@@ -22,9 +22,6 @@ const DiaryListForDateModal = ({ date, onClose, diaryEntries, summary, onSummary
 
   const dayData = diaryEntries;
   const diaryList = dayData ?? [];
-  
-  //const gptSummary = dayData?.gptSummary;
-  //const gptSummary = "GPT 요약은 아직 mock입니다!"; // Mock 데이터로 대체
 
   // 최신순 정렬
   const sortedList = [...diaryList].sort((a, b) => Number(b.id) - Number(a.id));
@@ -44,6 +41,14 @@ const DiaryListForDateModal = ({ date, onClose, diaryEntries, summary, onSummary
       setLoading(false);
     }
   };
+
+  const parsedHabits = ((habitTags:string) => {
+    try {
+      return JSON.parse(habitTags);
+    } catch (e) {
+      return [];
+    }
+  });
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
@@ -87,7 +92,7 @@ const DiaryListForDateModal = ({ date, onClose, diaryEntries, summary, onSummary
                     {emotionEmojiMap[entry.emotion as EmotionLevel]}
                   </span>
                 </div>
-                <div>✅ 오늘의 습관: {entry.habitTags.join(', ') || '없음'}</div>
+                <div>✅ 오늘의 습관: {parsedHabits(entry.habitTags).join(', ') || '없음'}</div>
                 <div>
                   💬 오늘의 기분 한마디: {entry.feelingKo} / <i>{entry.feelingEn}</i>
                 </div>

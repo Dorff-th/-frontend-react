@@ -7,7 +7,7 @@ export type DiaryEntry = {
   id: string;
   date: string;
   emotion: EmotionLevel;
-  habitTags: string[];
+  habitTags: string;
   feelingKo: string;
   feelingEn: string;
   content: string;

@@ -24,12 +24,12 @@ const SummaryPage = () => {
   if (!summary) return <div className="text-center">오늘 회고가 없습니다.</div>;
 
   const parsedHabits = (() => {
-  try {
-    return JSON.parse(summary.habitTags);
-  } catch (e) {
-    return [];
-  }
-})();
+    try {
+      return JSON.parse(summary.habitTags);
+    } catch (e) {
+      return [];
+    }
+  })();
 
   return (
     <div className="max-w-md mx-auto p-4 space-y-4">
