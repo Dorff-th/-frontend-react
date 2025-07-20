@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useToastHelper } from '@/features/toast/utils/toastHelper';
-import { createGptFeedback } from '../api/summaryApi';
+//import { createGptFeedback } from '../api/summaryApi';
 
 
 interface Props {
@@ -13,18 +13,18 @@ const FeedbackCard = ({ feedback, onFeedbackUpdated }: Props) => {
   const toast = useToastHelper();
   const { showSuccess, showError } = useToastHelper();
 
-  const handleGenerateFeedback = async () => {
-    try {
-      setLoading(true);
-      const res = await createGptFeedback();
-      onFeedbackUpdated(res.feedback);
-      showSuccess('GPT 피드백이 생성되었어요!');
-    } catch (e) {
-      showError('피드백 생성에 실패했어요 😢');
-    } finally {
-      setLoading(false);
-    }
-  };
+  // const handleGenerateFeedback = async () => {
+  //   try {
+  //     setLoading(true);
+  //     const res = await createGptFeedback();
+  //     onFeedbackUpdated(res.feedback);
+  //     showSuccess('GPT 피드백이 생성되었어요!');
+  //   } catch (e) {
+  //     showError('피드백 생성에 실패했어요 😢');
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   return (
     <div className="rounded-xl bg-green-50 p-4 shadow-sm">
@@ -34,13 +34,13 @@ const FeedbackCard = ({ feedback, onFeedbackUpdated }: Props) => {
       ) : (
         <div>
           <p className="text-sm text-gray-500 mb-2">아직 GPT 피드백이 없어요.</p>
-          <button
+          {/* <button
             onClick={handleGenerateFeedback}
             disabled={loading}
             className="bg-green-500 text-white px-4 py-1 rounded-md hover:bg-green-600 text-sm"
           >
             {loading ? '생성 중...' : '피드백 생성하기'}
-          </button>
+          </button> */}
         </div>
       )}
     </div>
